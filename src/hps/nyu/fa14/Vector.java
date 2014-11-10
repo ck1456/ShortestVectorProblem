@@ -22,7 +22,7 @@ public class Vector {
         int[] vec = new int[B.dim];
         for(int v = 0; v < coef.length; v++) {
             for(int d = 0; d < B.dim; d++) {
-                vec[d] += (coef[d] * B.vectors[v][d]);
+                vec[d] += (coef[v] * B.vectors[v][d]);
             }
         }
 

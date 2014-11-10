@@ -1,6 +1,6 @@
 package hps.nyu.fa14;
 
-import hps.nyu.fa14.solve.TrivialSolver;
+import hps.nyu.fa14.solve.LLLSolver;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +13,9 @@ public class ShortestVector {
     private static Vector solve(Basis b){
         
         // TODO: Implement this better
-        ISolver solver = new TrivialSolver();
+        ISolver solver = new LLLSolver();
         Vector vec = solver.solve(b);
+        System.out.println("Vector Length: " + vec.length());
         return vec;
     }
 

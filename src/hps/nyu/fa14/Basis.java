@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 public class Basis {
 
@@ -24,6 +25,17 @@ public class Basis {
         return vec;
     }
 
+    private static final Random RAND = new Random();
+    public static Basis random(int dim, int vecCount){
+        Basis b = new Basis(dim, vecCount);
+        for(int v = 0; v < vecCount; v++){
+            for(int d = 0; d < dim; d++){
+                b.vectors[v][d] = RAND.nextInt(100);
+            }
+        }
+        return b;
+    }
+    
     public static Basis parse(InputStream input) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(input));
@@ -47,4 +59,5 @@ public class Basis {
     public static Basis parseFile(String filePath) throws IOException {
         return parse(new FileInputStream(new File(filePath)));
     }
+    
 }
