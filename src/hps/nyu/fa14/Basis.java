@@ -30,7 +30,8 @@ public class Basis {
         Basis b = new Basis(dim, vecCount);
         for(int v = 0; v < vecCount; v++){
             for(int d = 0; d < dim; d++){
-                b.vectors[v][d] = RAND.nextInt(100);
+                // Range is -300 < v_ij < 300 per spec
+                b.vectors[v][d] = RAND.nextInt(599) - 299;
             }
         }
         return b;

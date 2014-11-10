@@ -9,11 +9,29 @@ public class LLLSolverTest {
 
     @Test
     public void testSolveSmall() throws Exception {
+        Basis b = Basis.random(3, 3);
+        ISolver s = new LLLSolver();
+        Vector v = s.solve(b);
+        assertNotNull(v);
+        //System.out.println(v.length());
+    }
+    
+    @Test
+    public void testSolveNonSquare() throws Exception {
         Basis b = Basis.random(5, 3);
         ISolver s = new LLLSolver();
         Vector v = s.solve(b);
         assertNotNull(v);
         //System.out.println(v.length());
+    }
+    
+    @Test
+    public void testSolveMaxDim() throws Exception {
+        Basis b = Basis.random(150, 150);
+        ISolver s = new LLLSolver();
+        Vector v = s.solve(b);
+        assertNotNull(v);
+        System.out.println(v.length());
     }
 
     @Test
