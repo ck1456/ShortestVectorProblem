@@ -29,6 +29,14 @@ public class Vector {
         // and then its length
         return vectorLength(vec);
     }
+    
+    public Vector clone(){
+        Vector newVec = new Vector(B);
+        for(int i = 0; i< coef.length; i++){
+            newVec.coef[i] = coef[i];
+        }
+        return newVec;
+    }
 
     public static double vectorLength(int[] vec) {
         int sum = 0;
