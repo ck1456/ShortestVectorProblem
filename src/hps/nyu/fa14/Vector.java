@@ -39,7 +39,7 @@ public class Vector {
     }
 
     public static double vectorLength(int[] vec) {
-        int sum = 0;
+        double sum = 0;
         for(int d = 0; d < vec.length; d++) {
             sum += (vec[d] * vec[d]);
         }
