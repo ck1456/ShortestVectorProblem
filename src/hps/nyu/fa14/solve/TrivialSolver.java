@@ -1,10 +1,9 @@
 package hps.nyu.fa14.solve;
 
 import hps.nyu.fa14.Basis;
-import hps.nyu.fa14.ISolver;
 import hps.nyu.fa14.Vector;
 
-public class TrivialSolver implements ISolver {
+public class TrivialSolver extends AbstractSolver {
 
     @Override
     public Vector solve(Basis b) {
@@ -21,6 +20,7 @@ public class TrivialSolver implements ISolver {
             }
         }
         vec.coef[shortestVector] = 1;
+        updateIfBest(vec);
         return vec;
     }
 

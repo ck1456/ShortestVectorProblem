@@ -25,11 +25,15 @@ public class Vector {
                 vec[d] += (coef[v] * B.vectors[v][d]);
             }
         }
-
         // and then its length
         return vectorLength(vec);
     }
 
+    // Must be a non-zero vector to be feasible
+    public boolean isFeasible(){
+        return length() != 0.0;
+    }
+    
     public Vector clone() {
         Vector newVec = new Vector(B);
         for(int i = 0; i < coef.length; i++) {

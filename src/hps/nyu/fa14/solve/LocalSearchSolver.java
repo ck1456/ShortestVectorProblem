@@ -1,7 +1,6 @@
 package hps.nyu.fa14.solve;
 
 import hps.nyu.fa14.Basis;
-import hps.nyu.fa14.ISolver;
 import hps.nyu.fa14.Vector;
 
 /**
@@ -9,13 +8,14 @@ import hps.nyu.fa14.Vector;
  * 
  * @author ck1456@nyu.edu
  */
-public class LocalSearchSolver implements ISolver {
+public class LocalSearchSolver extends AbstractSolver {
 
     @Override
     public Vector solve(Basis b) {
 
         Vector v = new TrivialSolver().solve(b);
         v = localSearch(v);
+        updateIfBest(v);
         return v;
     }
 

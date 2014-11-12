@@ -1,21 +1,20 @@
 package hps.nyu.fa14.solve;
 
+import hps.nyu.fa14.Basis;
+import hps.nyu.fa14.Vector;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import hps.nyu.fa14.Basis;
-import hps.nyu.fa14.ISolver;
-import hps.nyu.fa14.Vector;
-
 /**
  * Implements an evolutionary solver
  * 
  * @author ck1456@nyu.edu
  */
-public class EvolutionarySolver implements ISolver {
+public class EvolutionarySolver extends AbstractSolver {
 
   private static Random rand = new Random();
   public int populationSize = 100;
