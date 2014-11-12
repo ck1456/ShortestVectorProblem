@@ -1,7 +1,6 @@
 package hps.nyu.fa14.solve;
 
 import hps.nyu.fa14.Basis;
-import hps.nyu.fa14.ISolver;
 import hps.nyu.fa14.Vector;
 
 import java.math.BigInteger;
@@ -21,7 +20,7 @@ import com.milowski.monos.binomial.LLL;
  *  
  * @author ck1456@nyu.edu
  */
-public class LLLSolver implements ISolver {
+public class LLLSolver extends AbstractSolver {
 
     @Override
     public Vector solve(Basis b) {
@@ -84,6 +83,7 @@ public class LLLSolver implements ISolver {
             v.coef[i] = (int)Math.round(coefs[i]);
         }
 
+        updateIfBest(v);
         return v;
     }
 
@@ -120,6 +120,7 @@ public class LLLSolver implements ISolver {
         return b;
     }
     
+    @SuppressWarnings("unused")
     private static double[][] convertToDouble(int[][] b) {
         double[][] dB = new double[b.length][b[0].length];
         for(int v = 0; v < b.length; v++) {

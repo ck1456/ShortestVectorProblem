@@ -1,5 +1,6 @@
 package hps.nyu.fa14;
 
+import hps.nyu.fa14.solve.IncrementalProgressSolver;
 import hps.nyu.fa14.solve.LLLSolver;
 
 import java.io.File;
@@ -10,37 +11,39 @@ import java.io.IOException;
  */
 public class ShortestVector {
 
-    private static Vector solve(Basis b){
-        
-        // TODO: Implement this better
+    private static Vector solve(Basis b, String outputPath) {
+
         ISolver solver = new LLLSolver();
-        Vector vec = solver.solve(b);
+        ISolver timedSolver = new TimedSolver(solver, 119);
+        ISolver progressSolver = new IncrementalProgressSolver(timedSolver,
+                outputPath);
+        Vector vec = progressSolver.solve(b);
         System.out.println("Vector Length: " + vec.length());
         return vec;
     }
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 2) {
+        if(args.length != 2) {
             usage();
         }
         // first parameter is input
         String inputFile = args[0];
         String outputFile = args[1];
 
-        Basis b = Basis.parseFile(inputFile);
-        Vector vec = solve(b);
-        
         // Make directory for the output file if it does not exist
         File outFile = new File(outputFile);
         outFile.getAbsoluteFile().getParentFile().mkdirs();
+
+        Basis b = Basis.parseFile(inputFile);
+        Vector vec = solve(b, outputFile);
+
         vec.writeFile(outputFile);
     }
 
     private static void usage() {
         // How to use it
-        System.out.println("java -jar ShortestVector <input> <output>");
+        System.out.println("java -jar ShortestVector.jar <input> <output>");
         System.exit(1);
     }
-        
-}        
 
+}
