@@ -19,7 +19,7 @@ public class Vector {
 
     public double length() {
         // determine the coordinates of the new vector
-        int[] vec = new int[B.dim];
+        double[] vec = new double[B.dim];
         for(int v = 0; v < coef.length; v++) {
             for(int d = 0; d < B.dim; d++) {
                 vec[d] += (coef[v] * B.vectors[v][d]);
@@ -29,16 +29,24 @@ public class Vector {
         // and then its length
         return vectorLength(vec);
     }
-    
-    public Vector clone(){
+
+    public Vector clone() {
         Vector newVec = new Vector(B);
-        for(int i = 0; i< coef.length; i++){
+        for(int i = 0; i < coef.length; i++) {
             newVec.coef[i] = coef[i];
         }
         return newVec;
     }
 
     public static double vectorLength(int[] vec) {
+        double[] dVec = new double[vec.length];
+        for(int i = 0; i < vec.length; i++) {
+            dVec[i] = vec[i];
+        }
+        return vectorLength(dVec);
+    }
+
+    public static double vectorLength(double[] vec) {
         double sum = 0;
         for(int d = 0; d < vec.length; d++) {
             sum += (vec[d] * vec[d]);
@@ -54,7 +62,7 @@ public class Vector {
         }
         bw.close();
     }
-    
+
     public void writeFile(String filename) throws IOException {
         write(new FileOutputStream(new File(filename)));
     }

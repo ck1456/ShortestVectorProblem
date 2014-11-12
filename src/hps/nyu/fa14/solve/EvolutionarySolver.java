@@ -34,15 +34,7 @@ public class EvolutionarySolver implements ISolver {
     }
     Comparator<Vector> cmp = new Comparator<Vector>() {
       public int compare(Vector v1, Vector v2) {
-        double len1 = v1.length();
-        double len2 = v2.length();
-        if(len1 > len2) {
-          return 1;
-        }
-        else if(len1 < len2) {
-          return -1;
-        }
-        return 0;
+        return (int)Math.signum(v1.length() - v2.length());
       }
     };
     Collections.sort(population,cmp);

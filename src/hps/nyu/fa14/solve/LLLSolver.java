@@ -37,7 +37,7 @@ public class LLLSolver implements ISolver {
         double shortest = Double.MAX_VALUE;
         int vectorIndex = -1;
         for(int i = 0; i < b.vecCount; i++) {
-            double vLen = Vector.vectorLength((reduced[i]));
+            double vLen = Vector.vectorLength(reduced[i]);
             //System.out.println(String.format("%s", vLen));
             // Find the shortest vector and solve a system of linear equations
             // to reconstruct it
