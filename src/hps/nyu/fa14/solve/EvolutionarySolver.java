@@ -19,7 +19,7 @@ public class EvolutionarySolver implements ISolver {
 
   private static Random rand = new Random();
   public int populationSize = 100;
-  public int generations = 500;
+  public int generations = 4500;
   public double mutationProb = 0.9;
 
   @Override
@@ -29,6 +29,7 @@ public class EvolutionarySolver implements ISolver {
     // Initial popuation with random assignments
     for(int i=0;i<populationSize;i++) {
       Vector v = getRandomAssignments(b);
+      //v = localSearch(v);
       population.add(v);
       parentPopulation.add(v.clone());
     }
@@ -47,6 +48,7 @@ public class EvolutionarySolver implements ISolver {
         Vector v = combine(parentPopulation,5);
         //mutate vector v
         v = mutate(v);
+        //v = localSearch(v);
         population.set(i, v);
       }
       Collections.sort(population,cmp);
@@ -72,7 +74,22 @@ public class EvolutionarySolver implements ISolver {
         //TODO: think how should it be mutated
         //right now it makes the coefficient 
         //a one-fifth of what it was earlier
-        v.coef[i] = v.coef[i] / 5;
+        int m = rand.nextInt(4);
+        if(m == 0) {
+          v.coef[i] = v.coef[i] / 2;
+        }
+        else if(m == 1) {
+          v.coef[i] = v.coef[i] / 3;
+        }
+        else if(m == 2) {
+          v.coef[i] = v.coef[i] / 4;
+        }
+        else {
+          v.coef[i] = v.coef[i] / 5;
+        }
+        if(rand.nextBoolean()) {
+          v.coef[i] = -v.coef[i];
+        }
       }
     }
     return v;
@@ -94,7 +111,7 @@ public class EvolutionarySolver implements ISolver {
   public static Vector getRandomAssignments(Basis b) {
     Vector randomVector = new Vector(b);
     for(int i=0;i<b.vecCount;i++) {
-      randomVector.coef[i] = rand.nextInt(Integer.MAX_VALUE - 1);
+      randomVector.coef[i] = rand.nextInt(8);
       if(rand.nextBoolean()) {
         randomVector.coef[i] = -randomVector.coef[i];
       }
