@@ -17,17 +17,22 @@ import java.util.Random;
 public class EvolutionarySolver extends AbstractSolver {
 
   private static Random rand = new Random();
-  public int populationSize = 100;
-  public int generations = 4500;
+  public int populationSize = 10;
+  public int generations = 5000;
   public double mutationProb = 0.9;
 
   @Override
   public Vector solve(Basis b) {
     List<Vector> population = new ArrayList<Vector>();
     List<Vector> parentPopulation = new ArrayList<Vector>();
+    AbstractSolver lllSolver = new LLLSolver();
     // Initial popuation with random assignments
-    for(int i=0;i<populationSize;i++) {
-      Vector v = getRandomAssignments(b);
+    Vector v = lllSolver.solve(b);
+    population.add(v);
+    parentPopulation.add(v.clone());
+    for(int i=1;i<populationSize;i++) {
+      v = getRandomAssignments(b);
+      //Vector v = lllSolver.solve(b);
       //v = localSearch(v);
       population.add(v);
       parentPopulation.add(v.clone());
@@ -44,7 +49,7 @@ public class EvolutionarySolver extends AbstractSolver {
     while(t < generations) {
       //pick the best assignments and combine them
       for(int i=0;i<populationSize;i++) {
-        Vector v = combine(parentPopulation,5);
+        v = combine(parentPopulation,5);
         //mutate vector v
         v = mutate(v);
         //v = localSearch(v);
@@ -71,20 +76,12 @@ public class EvolutionarySolver extends AbstractSolver {
       int n = rand.nextInt(100);
       if(n < mutationProb * 100) {
         //TODO: think how should it be mutated
-        //right now it makes the coefficient 
-        //a one-fifth of what it was earlier
-        int m = rand.nextInt(4);
-        if(m == 0) {
-          v.coef[i] = v.coef[i] / 2;
-        }
-        else if(m == 1) {
-          v.coef[i] = v.coef[i] / 3;
-        }
-        else if(m == 2) {
-          v.coef[i] = v.coef[i] / 4;
+        int m = rand.nextInt(100);
+        if(rand.nextBoolean()) {
+          v.coef[i] = v.coef[i] + m;
         }
         else {
-          v.coef[i] = v.coef[i] / 5;
+          v.coef[i] = v.coef[i] - m;
         }
         if(rand.nextBoolean()) {
           v.coef[i] = -v.coef[i];
@@ -99,10 +96,30 @@ public class EvolutionarySolver extends AbstractSolver {
    */
   Vector combine(List<Vector> population, int n) {
     Vector v = new Vector(population.get(0).B);
-    for(int i=0;i<v.coef.length;i++) {
-      //pick from the k best parents
+    /*for(int i=0;i<v.coef.length;i++) {
+      //pick from the n best parents
+      //TODO: think how this can be done better
+      //just choosing a coefficient from
+      //best n parents will not make the child better
+      //than parents (this is not even likely)
       int k = rand.nextInt(n);
       v.coef[i] = population.get(k).coef[i];
+    }*/
+    for(int j=0;j<5;j++) {
+      int a = v.coef.length * j / 5;
+      int b = (v.coef.length * (j+1) / 5);
+      int bestK = 0;
+      double bestLen = Double.MAX_VALUE;
+      for(int k=0;k<n;k++) {
+        double len = population.get(k).length(a, b);
+        if(len < bestLen) {
+          len = bestLen;
+          bestK = k;
+        }
+      }
+      for(int i=a;i<b;i++) {
+        v.coef[i] = population.get(bestK).coef[i];
+      }
     }
     return v;
   }

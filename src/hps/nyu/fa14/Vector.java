@@ -28,6 +28,18 @@ public class Vector {
         // and then its length
         return vectorLength(vec);
     }
+    
+    public double length(int i,int j) {
+      // determine the coordinates of the new vector
+      double[] vec = new double[B.dim];
+      for(int v = i; v < j; v++) {
+          for(int d = 0; d < B.dim; d++) {
+              vec[d] += (coef[v] * B.vectors[v][d]);
+          }
+      }
+      // and then its length
+      return vectorLength(vec);
+  }
 
     // Must be a non-zero vector to be feasible
     public boolean isFeasible(){
