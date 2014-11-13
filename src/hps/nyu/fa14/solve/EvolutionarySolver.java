@@ -17,8 +17,8 @@ import java.util.Random;
 public class EvolutionarySolver extends AbstractSolver {
 
   private static Random rand = new Random();
-  public int populationSize = 10;
-  public int generations = 5000;
+  public int populationSize = 100;
+  public int generations = 10000;
   public double mutationProb = 0.9;
 
   @Override
@@ -28,6 +28,8 @@ public class EvolutionarySolver extends AbstractSolver {
     AbstractSolver lllSolver = new LLLSolver();
     // Initial popuation with random assignments
     Vector v = lllSolver.solve(b);
+    //Vector v = getRandomAssignments(b);
+    v = localSearch(v);
     population.add(v);
     parentPopulation.add(v.clone());
     for(int i=1;i<populationSize;i++) {
@@ -76,7 +78,7 @@ public class EvolutionarySolver extends AbstractSolver {
       int n = rand.nextInt(100);
       if(n < mutationProb * 100) {
         //TODO: think how should it be mutated
-        int m = rand.nextInt(100);
+        int m = rand.nextInt(8);
         if(rand.nextBoolean()) {
           v.coef[i] = v.coef[i] + m;
         }
