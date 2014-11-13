@@ -40,7 +40,7 @@ public class LLLSolverTest {
         ISolver s = new LLLSolver();
         Vector v = s.solve(b);
         //System.out.println(v.length());
-        assertTrue(v.length() < 156);
+        assertTrue(v.length() < 498);
     }
 
     @Test
@@ -52,10 +52,10 @@ public class LLLSolverTest {
 
     int[] upperBounds = new int[]{
       0,
-      156,
-      128,
-      132,
-      158
+      498,
+      862,
+      1219,
+      1495
     };
     
     public void testFile(int i) throws Exception {

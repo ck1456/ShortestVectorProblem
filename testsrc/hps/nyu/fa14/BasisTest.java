@@ -9,8 +9,8 @@ public class BasisTest {
     @Test
     public void testParseFile() throws Exception {
         Basis b = Basis.parseFile("data/input1.in");
-        assertEquals(40, b.vecCount);
-        assertEquals(50, b.dim);
+        assertEquals(23, b.vecCount);
+        assertEquals(23, b.dim);
     }
 
 }

@@ -11,7 +11,7 @@ public class LinearRelaxationSolverTest {
     @Test
     public void testSolveSmall() throws Exception {
         int iCount = 0;
-        for(int i = 0; i < 1000; i++) {
+        for(int i = 0; i < 10; i++) {
             Basis b = Basis.random(45, 40);
             ISolver s = new LinearRelaxationSolver();
             Vector v = s.solve(b);

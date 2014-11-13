@@ -26,7 +26,7 @@ public class VectorTest {
     public void testKnownLength() throws Exception {
         Basis b = Basis.parseFile("data/input1.in");
         Vector v = new TrivialSolver().solve(b);
-        assertEquals(371.1414824564886, v.length(), 1e-12);
+        assertEquals(665.8303087123626, v.length(), 1e-12);
     }
 
 }
