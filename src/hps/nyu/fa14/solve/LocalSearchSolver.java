@@ -12,41 +12,36 @@ public class LocalSearchSolver extends AbstractSolver {
 
     @Override
     public Vector solve(Basis b) {
-
-        Vector v = new TrivialSolver().solve(b);
-        v = localSearch(v);
+        Vector v = localSearch(b.zeroVector());
         updateIfBest(v);
         return v;
     }
 
     public static Vector localSearch(Vector v) {
 
-        int tests = 0;
         // Incrementally optimize this vector
         v = v.clone(); // don't modify the original
-        double bestLength = v.length();
+        double bestLength = Double.MAX_VALUE;
         Vector bestVector = v.clone();
 
-        int[] increments = new int[] { -1, 2, -1 };
+        int[] increments = new int[] { -4, 1, 1, 1, 1, 1, 1, 1, 1, -4 };
 
         boolean improved = true;
         while (improved) {
             improved = false;
             // n^2 search over coefficient length
+            v = bestVector;
             cLoop: for(int j = 0; j < v.coef.length; j++) {
                 for(int inc1 : increments) {
                     v.coef[j] = v.coef[j] + inc1;
-
-                    for(int i = 0; i < v.coef.length; i++) {
+                    Vector v1= v.clone();
+                    for(int i = 0; i < v1.coef.length; i++) {
                         for(int inc2 : increments) {
-                            v.coef[i] = v.coef[i] + inc2;
-                            tests++;
-                            if(v.length() > 0 && v.length() < bestLength) {
-                                bestLength = v.length();
-                                bestVector = v.clone();
+                            v1.coef[i] = v1.coef[i] + inc2;
+                            if(v1.length() > 0 && v1.length() < bestLength) {
+                                bestLength = v1.length();
+                                bestVector = v1.clone();
                                 improved = true;
-                                System.out.println("[" + tests + "] Improved: "
-                                        + bestLength);
                                 break cLoop;
                             }
                         }
@@ -54,8 +49,6 @@ public class LocalSearchSolver extends AbstractSolver {
                 }
             }
         }
-
-        System.out.println("Tests: " + tests);
         return bestVector;
     }
 }
