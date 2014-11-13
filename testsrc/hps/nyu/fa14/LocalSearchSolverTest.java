@@ -1,6 +1,7 @@
 package hps.nyu.fa14;
 
 import static org.junit.Assert.assertTrue;
+import hps.nyu.fa14.solve.EvolutionarySolver;
 import hps.nyu.fa14.solve.LocalSearchSolver;
 
 import org.junit.Test;

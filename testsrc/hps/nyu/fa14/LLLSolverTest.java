@@ -63,6 +63,7 @@ public class LLLSolverTest {
         ISolver s = new LLLSolver();
         Vector v = s.solve(b);
         double vLen = v.length();
+        System.out.println("Len "+vLen);
         assertTrue(String.format("Vector Length was %f > %d", vLen, upperBounds[i]), vLen <= upperBounds[i]);
     }
 }
