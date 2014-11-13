@@ -1,7 +1,7 @@
 package hps.nyu.fa14;
 
 import hps.nyu.fa14.solve.IncrementalProgressSolver;
-import hps.nyu.fa14.solve.LLLSolver;
+import hps.nyu.fa14.solve.LinearRelaxationSolver;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class ShortestVector {
 
     private static Vector solve(Basis b, String outputPath) {
 
-        ISolver solver = new LLLSolver();
+        ISolver solver = new LinearRelaxationSolver();
         ISolver timedSolver = new TimedSolver(solver, 119);
         ISolver progressSolver = new IncrementalProgressSolver(timedSolver,
                 outputPath);

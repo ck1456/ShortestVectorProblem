@@ -13,7 +13,7 @@ public class LocalSearchSolverTest {
         ISolver s = new LocalSearchSolver();
         Vector v = s.solve(b);
         System.out.println(v.length());
-        assertTrue(v.length() < 164);
+        assertTrue(v.length() < 498);
     }
 
    
